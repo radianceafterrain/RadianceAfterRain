@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style type="text/css">
+BODY {overflow-x: hidden;}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anxiety</title>
+    <link href="style.css" rel="stylesheet" type="text/css" media="all">
+    <style>
+
+      .img-floatinganim {
+animation-name: floating; 
+animation-duration: 3s; 
+animation-iteration-count: infinite; 
+animation-timing-function: ease-in-out;
+} 
+
+@keyframes floating { 
+0% { 
+transform: translate(0,  0px); 
+} 
+
+50%  { 
+transform: translate(0, 15px); 
+} 
+
+100%   {
+transform: translate(0, -0px); 
+} 
+}
+
+    .jerky {
+      animation: jerky 0.5s infinite;
+    }
+
+    @keyframes jerky {
+      0% {
+        transform: rotate(2deg);
+      }
+
+      50% {
+        transform: rotate(2deg);
+      }
+
+      51% {
+        transform: rotate(-2deg);
+      }
+
+      100% {
+        transform: rotate(-2deg);
+      }
+    }
+    .text{
+  font-size:1em;
+	font-family: Arial #ffffff, Gadget, sans-serif;
+}
+
+.text:link { text-decoration: none; }
+
+.text::before {
+transform: scaleX(0);
+transform-origin: bottom right;
+}
+
+.text:hover::before {
+transform: scaleX(1);
+transform-origin: bottom left;
+}
+
+.text::before {
+
+content: " ";
+display: block;
+position: absolute;
+top: 0; right: 0; bottom: 0; left: 0;
+inset: 0 0 0 0;
+background: #e45aa6;
+z-index: -1;
+transition: transform .5s ease;
+}
+
+.text {
+position: relative;
+} 
+    .text1{
+  font-size:1em;
+	font-family: Arial #ffffff, Gadget, sans-serif;
+}
+
+.text1:link { text-decoration: none; }
+
+.text1::before {
+transform: scaleX(0);
+transform-origin: bottom right;
+}
+
+.text1:hover::before {
+transform: scaleX(1);
+transform-origin: bottom left;
+}
+
+.text1::before {
+
+content: " ";
+display: block;
+position: absolute;
+top: 0; right: 0; bottom: 0; left: 0;
+inset: 0 0 0 0;
+background: #5db792;
+z-index: -1;
+transition: transform .5s ease;
+}
+
+.text1 {
+position: relative;
+}
+  .bounce {
+    z-index: 99;
+    animation: bounce-anim 2s infinite;
+    animation-timing-function: cubic-bezier(0.25, 0.85, 0.4, 1) width:auto;
+    background: none;
+  }
+
+  .bounce:nth-child(1) {
+    animation-delay: 0s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(2) {
+    animation-delay: 0.2s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(3) {
+    animation-delay: 0.4s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(4) {
+    animation-delay: 0.6s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(5) {
+    animation-delay: 0.8s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(6) {
+    animation-delay: 1s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(7) {
+    animation-delay: 1.2s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(8) {
+    animation-delay: 1.4s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(9) {
+    animation-delay: 1.6s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(10) {
+    animation-delay: 1.8s;
+    display: inline-block;
+  }
+
+  @keyframes bounce-anim {
+    0% {
+      transform: scale(1, 1) translateY(0);
+    }
+
+    10% {
+      transform: scale(1.1, .9) translateY(0);
+    }
+
+    30% {
+      transform: scale(.9, 1.1) translateY(-30px);
+    }
+
+    50% {
+      transform: scale(1.05, .95) translateY(0);
+    }
+
+    60% {
+      transform: scale(1, 1) translateY(-4px);
+    }
+
+    100% {
+      transform: scale(1, 1) translateY(0);
+    }
+  }
+  </style>
+
+    <script type="text/javascript">
+// <![CDATA[
+var colours=new Array("#e45aa5", "#5db792", "#5db792", "#e45aa5", "#1b1927"); // colours for top, right, bottom and left borders and background of bubbles
+var bubbles=66; // maximum number of bubbles on screen
+var over_or_under="over"; // set to "over" for bubbles to always be on top, or "under" to allow them to float behind other objects
+
+/****************************
+* JavaScript Bubble Cursor  *
+*(c)2010-13 mf2fm web-design*
+*  http://www.mf2fm.com/rv  *
+* DON'T EDIT BELOW THIS BOX *
+****************************/
+var x=ox=400;
+var y=oy=300;
+var swide=800;
+var shigh=600;
+var sleft=sdown=0;
+var bubb=new Array();
+var bubbx=new Array();
+var bubby=new Array();
+var bubbs=new Array();
+var sploosh=false;
+
+function addLoadEvent(funky) {
+  var oldonload=window.onload;
+  if (typeof(oldonload)!='function') window.onload=funky;
+  else window.onload=function() {
+    if (oldonload) oldonload();
+    funky();
+  }
+}
+
+addLoadEvent(buble);
+
+function buble() { if (document.getElementById) {
+  var i, rats, div;
+  for (i=0; i<bubbles; i++) {
+    rats=createDiv("3px", "3px");
+    rats.style.visibility="hidden";
+	rats.style.zIndex=(over_or_under=="over")?"1001":"0";
+
+    div=createDiv("auto", "auto");
+    rats.appendChild(div);
+    div=div.style;
+    div.top="1px";
+    div.left="0px";
+    div.bottom="1px";
+    div.right="0px";
+    div.borderLeft="1px solid "+colours[3];
+    div.borderRight="1px solid "+colours[1];
+
+    div=createDiv("auto", "auto");
+    rats.appendChild(div);
+    div=div.style;
+    div.top="0px";
+    div.left="1px";
+    div.right="1px";
+    div.bottom="0px"
+    div.borderTop="1px solid "+colours[0];
+    div.borderBottom="1px solid "+colours[2];
+
+    div=createDiv("auto", "auto");
+    rats.appendChild(div);
+    div=div.style;
+    div.left="1px";
+    div.right="1px";
+    div.bottom="1px";
+    div.top="1px";
+    div.backgroundColor=colours[4];
+    if (navigator.appName=="Microsoft Internet Explorer") div.filter="alpha(opacity=50)";
+    else div.opacity=0.5;
+    document.body.appendChild(rats);
+    bubb[i]=rats.style;
+  }
+  set_scroll();
+  set_width();
+  bubble();
+}}
+
+function bubble() {
+  var c;
+  if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
+    ox=x;
+    oy=y;
+    for (c=0; c<bubbles; c++) if (!bubby[c]) {
+      bubb[c].left=(bubbx[c]=x)+"px";
+      bubb[c].top=(bubby[c]=y-3)+"px";
+      bubb[c].width="3px";
+      bubb[c].height="3px"
+      bubb[c].visibility="visible";
+      bubbs[c]=3;
+      break;
+    }
+  }
+  for (c=0; c<bubbles; c++) if (bubby[c]) update_bubb(c);
+  setTimeout("bubble()", 40);
+}
+
+document.onmousedown=splash;
+document.onmouseup=function(){clearTimeout(sploosh);};
+
+function splash() {
+  ox=-1;
+  oy=-1;
+  sploosh=setTimeout('splash()', 100);
+}
+
+function update_bubb(i) {
+  if (bubby[i]) {
+    bubby[i]-=bubbs[i]/2+i%2;
+    bubbx[i]+=(i%5-2)/5;
+    if (bubby[i]>sdown && bubbx[i]>sleft && bubbx[i]<sleft+swide+bubbs[i]) {
+	  if (Math.random()<bubbs[i]/shigh*2 && bubbs[i]++<8) {
+		bubb[i].width=bubbs[i]+"px";
+		bubb[i].height=bubbs[i]+"px";
+	  }
+      bubb[i].top=bubby[i]+"px";
+      bubb[i].left=bubbx[i]+"px";
+    }
+    else {
+      bubb[i].visibility="hidden";
+      bubby[i]=0;
+      return;
+    }
+  }
+}
+
+document.onmousemove=mouse;
+function mouse(e) {
+  if (e) {
+    y=e.pageY;
+    x=e.pageX;
+  }
+  else {
+    set_scroll();
+    y=event.y+sdown;
+    x=event.x+sleft;
+  }
+}
+
+window.onresize=set_width;
+function set_width() {
+  var sw_min=999999;
+  var sh_min=999999;
+  if (document.documentElement && document.documentElement.clientWidth) {
+    if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+    if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+  }
+  if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+    if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+    if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+  }
+  if (document.body.clientWidth) {
+    if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+    if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+  }
+  if (sw_min==999999 || sh_min==999999) {
+    sw_min=800;
+    sh_min=600;
+  }
+  swide=sw_min;
+  shigh=sh_min;
+}
+
+window.onscroll=set_scroll;
+function set_scroll() {
+  if (typeof(self.pageYOffset)=='number') {
+    sdown=self.pageYOffset;
+    sleft=self.pageXOffset;
+  }
+  else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+    sdown=document.body.scrollTop;
+    sleft=document.body.scrollLeft;
+  }
+  else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+    sleft=document.documentElement.scrollLeft;
+    sdown=document.documentElement.scrollTop;
+  }
+  else {
+    sdown=0;
+    sleft=0;
+  }
+}
+
+function createDiv(height, width) {
+  var div=document.createElement("div");
+  div.style.position="absolute";
+  div.style.height=height;
+  div.style.width=width;
+  div.style.overflow="hidden";
+  div.style.backgroundColor="transparent";
+  return (div);
+}
+// ]]>
+</script>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="bounce">
+        <h1>SeriousHall Signup: ANXIETY</h1>
+    </div>
+    <br>
+
+    <div>
+
+<iframe frameborder="0" src="https://itch.io/embed/2785126?border_width=0&amp;dark=true" width="550" height="165"><a href="https://takadu.itch.io/serioushall-signup-anxiety">SeriousHall Signup: ANXIETY by Takadu</a></iframe>
+<h2>this itch account is no longer going to be used</h2>
+  </div>
+
+  <br>
+        <div class="text">
+          <a href="creations.html">
+      <h2>back</h2> </a>
+    </div>
+
+</body>
+</html>
