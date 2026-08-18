@@ -1,6 +1,13 @@
 @font-face {
     font-family: 'ComicSansMS';
-    src: url('Comic Sans MS.ttf') format('truetype');
+    src: url('ComicSansMS.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'nasinnanpa';
+    src: url('nasin-nanpa-4.0.2.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -10,6 +17,20 @@ body {
     color: white;
     text-align: center;
     border-radius: 8px;
+}
+
+.tokipona {
+    font-family: 'nasinnanpa', sans-serif;
+    font-variant-ligatures: common-ligatures contextual;
+    /* or, more explicitly: */
+    font-feature-settings: "liga" 1, "clig" 1, "calt" 1;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+    color: inherit;
 }
 
 div {
@@ -38,7 +59,7 @@ div {
   margin: 10px;
 }
 
-        .bg {
+                .bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -57,7 +78,30 @@ div {
                 background-position: 0 0; 
             }
             100% { 
-                background-position: 960px 0; /* Half of tile size */ 
+                background-position: 960px 0; 
+            }
+        }
+
+                    .bg1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('website backround1.png');
+            background-size: 1920px 1080px;
+            background-repeat: repeat-x: repeat-y;
+            background-position: 0 0;
+            animation: scrollLeft 8s linear infinite;
+        }
+
+        @keyframes scrollLeft {
+            0% { 
+                background-position: 0 0; 
+            }
+            100% { 
+                background-position: -960px 0; 
             }
         }
 
@@ -67,3 +111,71 @@ div {
             color: #1b1927;
             padding: 20px;
         }
+
+.img-sliderighthover {
+	-webkit-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+}
+  
+.img-sliderighthover:hover {
+  	margin-left: 30px
+}
+
+.img-hearthover {
+  transition: all 0.5s;
+display: inline-block;
+transition: 1s ease;
+-webkit-mask-image: url(https://dl.dropbox.com/s/2kih8ox9q2czjeg/pngfind.com-kawaii-transparent-png-621355.png);
+-webkit-mask-size: 220%;
+-webkit-mask-repeat: no-repeat;
+-webkit-mask-position: center;
+}
+
+.img-hearthover:hover{
+  transition: all 0.5s;
+-webkit-mask-image: url(https://dl.dropbox.com/s/2kih8ox9q2czjeg/pngfind.com-kawaii-transparent-png-621355.png);
+-webkit-mask-size: 100%;
+-webkit-mask-repeat: no-repeat;
+-webkit-mask-position: center;
+}
+
+.img-starhover {
+-webkit-mask-image: url(https://i.imgur.com/WPTnhzY.png);
+-webkit-mask-size: 250%;
+-webkit-mask-repeat: no-repeat;
+-webkit-mask-position: center;
+ transform:rotate(0deg);
+transition:0.3s;
+}
+
+.img-starhover:hover{
+  -webkit-mask-size: 100%;
+  transform:rotate(-15deg);
+  transition:0.3s;
+  max-width: 300;
+}
+
+div.scroll-container {
+  background-color: transparent;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  max-width: 300px;
+}
+
+.scroll-container img {
+    display: inline-block;
+}
+
+@keyframes shake {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(0, 10px); }
+  40%  { transform: translate(0, 0px); }
+  60%  { transform: translate(0, 10px); }
+  80%  { transform: translate(0, 0); }
+  100% { transform: translate(0, 10px); }
+}
+
+.shake {
+  animation: shake 0.4s ease !important;
+}

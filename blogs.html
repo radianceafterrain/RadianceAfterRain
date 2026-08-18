@@ -31,27 +31,15 @@ transform: translate(0, -0px);
 } 
 }
 
-    .jerky {
-      animation: jerky 0.5s infinite;
-    }
+.tilt {
+  text-align: center;
+  animation: tilt 1s infinite alternate;
+}
 
-    @keyframes jerky {
-      0% {
-        transform: rotate(2deg);
-      }
-
-      50% {
-        transform: rotate(2deg);
-      }
-
-      51% {
-        transform: rotate(-2deg);
-      }
-
-      100% {
-        transform: rotate(-2deg);
-      }
-    }
+@keyframes tilt {
+  from { transform: rotate(5deg); }
+  to { transform: rotate(-5deg); }
+}
     .text{
   font-size:1em;
 	font-family: Arial #ffffff, Gadget, sans-serif;
@@ -76,7 +64,7 @@ display: block;
 position: absolute;
 top: 0; right: 0; bottom: 0; left: 0;
 inset: 0 0 0 0;
-background: #e45aa6;
+background: #c55de3;
 z-index: -1;
 transition: transform .5s ease;
 }
@@ -108,7 +96,7 @@ display: block;
 position: absolute;
 top: 0; right: 0; bottom: 0; left: 0;
 inset: 0 0 0 0;
-background: #5db792;
+background: #e8984e;
 z-index: -1;
 transition: transform .5s ease;
 }
@@ -158,6 +146,7 @@ function buble() { if (document.getElementById) {
     rats=createDiv("3px", "3px");
     rats.style.visibility="hidden";
 	rats.style.zIndex=(over_or_under=="over")?"1001":"0";
+  rats.style.pointerEvents="none";
 
     div=createDiv("auto", "auto");
     rats.appendChild(div);
@@ -315,14 +304,18 @@ function createDiv(height, width) {
 </script>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="jerky">
-        <h1>10th aug 2026</h1>
+    <div class="bg1"></div>
+    <div class="tilt">
+        <h1>my blogs</h1>
     </div>
     <br>
 
-    <div style="max-width: 300px;">
+        <div style="max-width: 300px;">
+  <a href="180826.html"> <h2>i talk about toki pona and other languages that i wanna learn</h2> </a>
+  </div>
 
+    <br>
+    <div style="max-width: 300px;">
   <a href="100826.html"> <h2>10th aug 2026</h2> </a>
   </div>
 

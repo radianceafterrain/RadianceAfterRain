@@ -6,7 +6,7 @@ BODY {overflow-x: hidden;}
 </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RadianceAfterRain</title>
+    <title>Gif</title>
     <link href="style.css" rel="stylesheet" type="text/css" media="all">
     <style>
 
@@ -31,27 +31,15 @@ transform: translate(0, -0px);
 } 
 }
 
-    .jerky {
-      animation: jerky 0.5s infinite;
-    }
 
-    @keyframes jerky {
-      0% {
-        transform: rotate(2deg);
-      }
 
-      50% {
-        transform: rotate(2deg);
-      }
-
-      51% {
-        transform: rotate(-2deg);
-      }
-
-      100% {
-        transform: rotate(-2deg);
-      }
-    }
+.tilt {
+animation: tilt 1s infinite alternate;
+}
+@keyframes tilt {
+  from { transform: rotate(5deg); }
+  to { transform: rotate(-5deg); }
+}
     .text{
   font-size:1em;
 	font-family: Arial #ffffff, Gadget, sans-serif;
@@ -76,7 +64,7 @@ display: block;
 position: absolute;
 top: 0; right: 0; bottom: 0; left: 0;
 inset: 0 0 0 0;
-background: #e45aa6;
+background: #c55de3;
 z-index: -1;
 transition: transform .5s ease;
 }
@@ -108,7 +96,7 @@ display: block;
 position: absolute;
 top: 0; right: 0; bottom: 0; left: 0;
 inset: 0 0 0 0;
-background: #5db792;
+background: #e8984e;
 z-index: -1;
 transition: transform .5s ease;
 }
@@ -120,7 +108,7 @@ position: relative;
 
     <script type="text/javascript">
 // <![CDATA[
-var colours=new Array("#e45aa5", "#5db792", "#5db792", "#e45aa5", "#1b1927"); // colours for top, right, bottom and left borders and background of bubbles
+var colours=new Array("#c55de3", "#e8984e", "#e8984e", "#c55de3", "#1b1927"); // colours for top, right, bottom and left borders and background of bubbles
 var bubbles=66; // maximum number of bubbles on screen
 var over_or_under="over"; // set to "over" for bubbles to always be on top, or "under" to allow them to float behind other objects
 
@@ -149,8 +137,6 @@ function addLoadEvent(funky) {
     funky();
   }
 }
-
-addLoadEvent(buble);
 
 function buble() { if (document.getElementById) {
   var i, rats, div;
@@ -312,54 +298,54 @@ function createDiv(height, width) {
   div.style.backgroundColor="transparent";
   return (div);
 }
+function initGif() {
+    // Initialize GIF
+    const gifs = [
+        'https://media1.tenor.com/m/su3ZqeSJPZ0AAAAd/snail-snipez-z-4.gif',
+        'https://media1.tenor.com/m/BptORbNdY9AAAAAd/jej-jej-animatic-battle.gif',
+        'https://media1.tenor.com/m/atdveCACXLkAAAAd/truth-nuke-jevil.gif',
+        'https://media1.tenor.com/m/bIOI846CLjYAAAAd/deltarune-susie-deltarune.gif',
+        'https://media1.tenor.com/m/bEbRbdirtcwAAAAd/deltarune-undertale.gif',
+        'https://media1.tenor.com/m/SZEEMmqUC5MAAAAd/cary-cary-huang.gif',
+        'https://media1.tenor.com/m/O24161mlgA4AAAAd/gmod-dinosaur.gif',
+        'https://media1.tenor.com/m/N55t-5vqNDQAAAAd/notverywokeofyou-not-very-woke-of-you.gif',
+        'https://gifconvert.vxtwitter.com/convert.avif?url=https://video.twimg.com/tweet_video/HMG8RiRWIAAq32b.mp4',
+        'https://media1.tenor.com/m/9EFHca1fJyMAAAAd/ratatouille-finding-nemo.gif',
+        'https://static2.klipy.com/ii/a8ada81afc59159ea5c8927feffa2e31/a4/1b/Z5mKXeFgY2JJm.gif',
+        'https://static2.klipy.com/ii/a8ada81afc59159ea5c8927feffa2e31/3c/dc/7ms7CczJvDUR.gif',
+        'https://media.discordapp.net/attachments/1408843139325890701/1522535312583032962/twitter-gif-2071135024988963161_6a478145a87e4.gif?ex=6a8620c1&is=6a84cf41&hm=8038abe86d3b118333d574da5e2cd1bde77eee43ff46820cf038096a8330c29b&=',
+        'https://media.discordapp.net/attachments/1502375662894448701/1517966153790783638/v86b08h.gif?ex=6a85fc25&is=6a84aaa5&hm=7935d64a906c9fd226ad7924e12a52f5fd82d5ffac3b516251aa6dcd79904407&=',
+        'https://media.discordapp.net/attachments/1505470502846857237/1537451013861146785/haveamewmew_shespinkbutstillgoodgifithink.gif?ex=6a85add6&is=6a845c56&hm=4b28f98a12c38ef9ef565d629a4aebec45208fc6873624ce6ccd287ba4925b73&=',
+        'https://media.discordapp.net/attachments/1408843139325890701/1522535313774215168/twitter-gif-2072429456812106102_6a477f73ca06b.gif?ex=6a8620c2&is=6a84cf42&hm=c4d91f29130f305b6fecbdd5ecd936b637e4d60cabd869b0346fee382acba18c&='
+    ];
+    
+    var gifElement = document.getElementById('randomGif');
+    if (gifElement) {
+        gifElement.src = gifs[Math.floor(Math.random() * gifs.length)];
+    }
+    
+}
+
+window.onload = function() {
+    buble();
+    initGif();
+};
 // ]]>
 </script>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="jerky">
-        <h1>welcome!</h1>
-    </div>
+    <div class="bg1"></div>
+
+    <div id="gifContainer">
+    <img id="randomGif" src="" style="width: 300px;">
+    <h3>refresh for a new gif!</h3>
+</div>
+    
     <br>
-    <div class="nav-container" style="display: flex;">
-
-    <div class="img-floatinganim">
-      <img src="posey.png" width="300" height="300">
+        <div class="text">
+          <a href="index.html">
+      <h2>back</h2> </a>
     </div>
-
-    <div class="container">
-
-      <div class="text">
-        <a href="about me.html"><h2>about me</h2></a>
-      </div>
-
-      <div class="text1">
-        <a href="creations.html"><h2>creations</h2></a>
-      </div>
-      
-      <div class="text">
-        <a href="blogs.html"><h2>blogs</h2></a>
-      </div>
-
-      <div class="text1">
-        <a href="friends.html"><h2>friends</h2></a>
-      </div>
-
-    </div>
-    </div>
-      <div class="container" style="display: flex; gap: 10px; align-items: flex-start;">
-        <div class="text"> <a href="https://www.youtube.com/@RadianceAfterRain" target="_blank" rel="noopener noreferrer"><img class="img-starhover" src="yticon.png" width="60px"></a> <a href="https://www.youtube.com/@RadianceAfterRain" target="_blank" rel="noopener noreferrer"><h2>youtube</h2></a> </div>
-        <div class="text1"> <a href="https://www.tiktok.com/@radianceafterrain" target="_blank" rel="noopener noreferrer"><img class="img-starhover" src="tiktokicon.png" width="60px"></a> <a href="https://www.tiktok.com/@radianceafterrain" target="_blank" rel="noopener noreferrer"> <h2>tiktok</h2> </a> </div>
-        <div class="text"> <a href="contact form.html"><img class="img-starhover"  src="formsicon.png" width="60px"></a> <a href="contact form.html"> <h2>contact</h2></a> </div>
-      </div>
-
-      <div class="container" style="display: flex; gap: 10px; align-items: flex-start;">
-        <div class="text"> <a href="https://x.com/RadianceAftRain" target="_blank" rel="noopener noreferrer"><img class="img-starhover" src="twittericon.png" width="60px"></a> <a href="https://x.com/RadianceAftRain" target="_blank" rel="noopener noreferrer"> <h2>twitter</h2></a> </div>
-      </div>
-      <div class="container" style="display: flex; gap: 10px; align-items: flex-start;">
-        <div class="text" style="width": 150px;>  <a href="gif.html"><h2>random gif i like</h2></a> </div>
-        <div class="text" style="width: 150px;">  <a href="high five.html" ><h2>give me a high five</h2></a> </div>
-      </div>
 
 </body>
 </html>

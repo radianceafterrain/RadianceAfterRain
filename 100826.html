@@ -158,6 +158,7 @@ function buble() { if (document.getElementById) {
     rats=createDiv("3px", "3px");
     rats.style.visibility="hidden";
 	rats.style.zIndex=(over_or_under=="over")?"1001":"0";
+  rats.style.pointerEvents="none";
 
     div=createDiv("auto", "auto");
     rats.appendChild(div);
@@ -329,7 +330,7 @@ function createDiv(height, width) {
     
     <br>
         <div class="text">
-          <a href="index.html">
+          <a href="blogs.html">
       <h2>back</h2> </a>
     </div>
 

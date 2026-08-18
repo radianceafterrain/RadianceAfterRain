@@ -76,7 +76,7 @@ display: block;
 position: absolute;
 top: 0; right: 0; bottom: 0; left: 0;
 inset: 0 0 0 0;
-background: #e45aa6;
+background: #c55de3;
 z-index: -1;
 transition: transform .5s ease;
 }
@@ -108,7 +108,7 @@ display: block;
 position: absolute;
 top: 0; right: 0; bottom: 0; left: 0;
 inset: 0 0 0 0;
-background: #5db792;
+background: #e8984e;
 z-index: -1;
 transition: transform .5s ease;
 }
@@ -116,11 +116,92 @@ transition: transform .5s ease;
 .text1 {
 position: relative;
 }
+.bounce {
+    z-index: 99;
+    animation: bounce-anim 2s infinite;
+    animation-timing-function: cubic-bezier(0.25, 0.85, 0.4, 1) width:auto;
+  }
+
+  .bounce:nth-child(1) {
+    animation-delay: 0s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(2) {
+    animation-delay: 0.2s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(3) {
+    animation-delay: 0.4s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(4) {
+    animation-delay: 0.6s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(5) {
+    animation-delay: 0.8s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(6) {
+    animation-delay: 1s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(7) {
+    animation-delay: 1.2s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(8) {
+    animation-delay: 1.4s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(9) {
+    animation-delay: 1.6s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(10) {
+    animation-delay: 1.8s;
+    display: inline-block;
+  }
+
+  @keyframes bounce-anim {
+    0% {
+      transform: scale(1, 1) translateY(0);
+    }
+
+    10% {
+      transform: scale(1.1, .9) translateY(0);
+    }
+
+    30% {
+      transform: scale(.9, 1.1) translateY(-30px);
+    }
+
+    50% {
+      transform: scale(1.05, .95) translateY(0);
+    }
+
+    60% {
+      transform: scale(1, 1) translateY(-4px);
+    }
+
+    100% {
+      transform: scale(1, 1) translateY(0);
+    }
+  }
   </style>
 
     <script type="text/javascript">
 // <![CDATA[
-var colours=new Array("#e45aa5", "#5db792", "#5db792", "#e45aa5", "#1b1927"); // colours for top, right, bottom and left borders and background of bubbles
+var colours=new Array("#c55de3", "#e8984e", "#e8984e", "#c55de3", "#1b1927");; // colours for top, right, bottom and left borders and background of bubbles
 var bubbles=66; // maximum number of bubbles on screen
 var over_or_under="over"; // set to "over" for bubbles to always be on top, or "under" to allow them to float behind other objects
 
@@ -158,6 +239,7 @@ function buble() { if (document.getElementById) {
     rats=createDiv("3px", "3px");
     rats.style.visibility="hidden";
 	rats.style.zIndex=(over_or_under=="over")?"1001":"0";
+  rats.style.pointerEvents="none";
 
     div=createDiv("auto", "auto");
     rats.appendChild(div);
@@ -315,8 +397,8 @@ function createDiv(height, width) {
 </script>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="jerky">
+    <div class="bg1"></div>
+    <div class="bounce">
         <h1>my friends' links</h1>
     </div>
     <br>
@@ -325,6 +407,10 @@ function createDiv(height, width) {
 
  <img src="friends.jpg">
     </div>
+
+    <br>
+
+    <div style="width: 300px;"><h2>if ur my friend and ur reading this and u want to advertise ur social media or website or whatever u should dm to add it here</h2></div>
 
     <br>
 

@@ -120,7 +120,6 @@ position: relative;
     z-index: 99;
     animation: bounce-anim 2s infinite;
     animation-timing-function: cubic-bezier(0.25, 0.85, 0.4, 1) width:auto;
-    background: none;
   }
 
   .bounce:nth-child(1) {
@@ -240,6 +239,7 @@ function buble() { if (document.getElementById) {
     rats=createDiv("3px", "3px");
     rats.style.visibility="hidden";
 	rats.style.zIndex=(over_or_under=="over")?"1001":"0";
+  rats.style.pointerEvents="none";
 
     div=createDiv("auto", "auto");
     rats.appendChild(div);
@@ -405,7 +405,7 @@ function createDiv(height, width) {
 
     <div>
 
-<iframe frameborder="0" src="https://itch.io/embed/2785126?border_width=0&amp;dark=true" width="550" height="165"><a href="https://takadu.itch.io/serioushall-signup-anxiety">SeriousHall Signup: ANXIETY by Takadu</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/2785126?border_width=0&amp;dark=true" width="550" height="165"><a href="https://takadu.itch.io/serioushall-signup-anxiety" target="_blank" rel="noopener noreferrer">SeriousHall Signup: ANXIETY by Takadu</a></iframe>
 <h2>this itch account is no longer going to be used</h2>
   </div>
 
