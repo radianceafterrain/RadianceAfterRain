@@ -410,15 +410,34 @@ function createDiv(height, width) {
 </head>
 <body>
     <div class="bg1"></div>
-    <div class="bounce">
-        <h1>my friends' links</h1>
+    <div>
+        <h1 class="bounce">my friends' links</h1>
     </div>
     <br>
 
-    <div style="max-width: 300px;">
+    <div style="max-width: 300px;" id="container">
+        <div class="item"><a href="https://ko-fi.com/coleithink" target="_blank"><img src="cole.png" alt="cole" width="250px" class="img-starhover"> <h2 class="lucidablackletter">Cole Games</h2><h4>(his kofi comms)</h4></a></div>
+        <div class="item"><a href="https://store.steampowered.com/app/3712420" target="_blank"><img src="evecooltext.png" alt="cole" width="250px" class="img-shakehover"> <h2>Eve</h2><h4>('Glass Sea' her game)</h4></a></div>
 
- <img src="friends.jpg">
     </div>
+
+
+<script>
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const container = document.getElementById('container');
+  const items = Array.from(container.children);
+  const shuffled = shuffle(items);
+
+  // Re-append in shuffled order — appendChild moves existing nodes, doesn't clone them
+  shuffled.forEach(item => container.appendChild(item));
+</script>
 
     <br>
 
