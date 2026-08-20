@@ -17,6 +17,11 @@
     src: url('Lucida\ Blackletter\ Regular.ttf') format('truetype');
 }
 
+.lucidablackletter {
+    font-family: 'lucidablackletter', sans-serif;
+    color: red;    
+}
+
 body {
     font-family: 'ComicSansMS', 'ComicSansMS', cursive, sans-serif;
     color: white;
@@ -31,11 +36,6 @@ body {
     font-feature-settings: "liga" 1, "clig" 1, "calt" 1;
 }
 
-.lucidablackletter {
-    font-family: 'lucidablackletter', sans-serif;
-    color: red;    
-}
-
 a,
 a:visited,
 a:hover,
@@ -44,7 +44,7 @@ a:active {
 }
 
 div {
-    background-color: #1b1927c2;
+    background-color: #1b192780;
     width: fit-content;
     height: fit-content;
     margin: auto;
