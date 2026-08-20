@@ -3,7 +3,7 @@
 <head>
         <!-- Basic Open Graph tags -->
   <meta property="og:title" content="RadianceAfterRain" />
-  <meta property="og:description" content="aaa" />
+  <meta property="og:description" content="contact form" />
   <meta property="og:image" content="https://raw.githubusercontent.com/radianceafterrain/RadianceAfterRain/refs/heads/main/tuffpose.png" />
   <meta property="og:url" content="https://RadianceAfterRain.com" />
   <meta property="og:type" content="website" />
@@ -11,14 +11,14 @@
   <!-- Optional but recommended: Twitter card (Discord also reads these) -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="RadianceAfterRain" />
-  <meta name="twitter:description" content="aaa" />
+  <meta name="twitter:description" content="contact form" />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/radianceafterrain/RadianceAfterRain/refs/heads/main/tuffpose.png" />
   <style type="text/css">
 BODY {overflow-x: hidden;}
 </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>Contact Form</title>
     <link href="style.css" rel="stylesheet" type="text/css" media="all">
     <style>
 
@@ -43,27 +43,42 @@ transform: translate(0, -0px);
 } 
 }
 
-    .jerky {
-      animation: jerky 0.5s infinite;
-    }
+.pop {
+ -webkit-animation: pop 1s ease-in-out infinite alternate;
+ animation: pop 1s ease-in-out infinite alternate;
+ -moz-animation: pop 1s ease-in-out infinite alternate;
+}
 
-    @keyframes jerky {
-      0% {
-        transform: rotate(2deg);
-      }
+@keyframes pop {
+from {
+transform:scale(0.95)
+}
 
-      50% {
-        transform: rotate(2deg);
-      }
+50% {
+transform:scale(1)
+}
 
-      51% {
-        transform: rotate(-2deg);
-      }
+to {
+transform:scale(0.95)
+}
+}
 
-      100% {
-        transform: rotate(-2deg);
-      }
-    }
+@-webkit-keyframes pop {
+from {
+-webkit-transform:scale(0.95)
+
+}
+
+50% {
+-webkit-transform:scale(1)
+
+}
+
+to {
+-webkit-transform:scale(0.95)
+
+}
+}
     .text{
   font-size:1em;
 	font-family: Arial #ffffff, Gadget, sans-serif;
@@ -88,7 +103,7 @@ display: block;
 position: absolute;
 top: 0; right: 0; bottom: 0; left: 0;
 inset: 0 0 0 0;
-background: #e45aa6;
+background: #c55de3;
 z-index: -1;
 transition: transform .5s ease;
 }
@@ -120,7 +135,7 @@ display: block;
 position: absolute;
 top: 0; right: 0; bottom: 0; left: 0;
 inset: 0 0 0 0;
-background: #5db792;
+background: #e8984e;
 z-index: -1;
 transition: transform .5s ease;
 }
@@ -128,11 +143,93 @@ transition: transform .5s ease;
 .text1 {
 position: relative;
 }
+  .bounce {
+    z-index: 99;
+    animation: bounce-anim 2s infinite;
+    animation-timing-function: cubic-bezier(0.25, 0.85, 0.4, 1) width:auto;
+    background: none;
+  }
+
+  .bounce:nth-child(1) {
+    animation-delay: 0s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(2) {
+    animation-delay: 0.2s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(3) {
+    animation-delay: 0.4s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(4) {
+    animation-delay: 0.6s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(5) {
+    animation-delay: 0.8s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(6) {
+    animation-delay: 1s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(7) {
+    animation-delay: 1.2s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(8) {
+    animation-delay: 1.4s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(9) {
+    animation-delay: 1.6s;
+    display: inline-block;
+  }
+
+  .bounce:nth-child(10) {
+    animation-delay: 1.8s;
+    display: inline-block;
+  }
+
+  @keyframes bounce-anim {
+    0% {
+      transform: scale(1, 1) translateY(0);
+    }
+
+    10% {
+      transform: scale(1.1, .9) translateY(0);
+    }
+
+    30% {
+      transform: scale(.9, 1.1) translateY(-30px);
+    }
+
+    50% {
+      transform: scale(1.05, .95) translateY(0);
+    }
+
+    60% {
+      transform: scale(1, 1) translateY(-4px);
+    }
+
+    100% {
+      transform: scale(1, 1) translateY(0);
+    }
+  }
   </style>
 
     <script type="text/javascript">
 // <![CDATA[
-var colours=new Array("#e45aa5", "#5db792", "#5db792", "#e45aa5", "#1b1927"); // colours for top, right, bottom and left borders and background of bubbles
+var colours=new Array("#c55de3", "#e8984e", "#e8984e", "#c55de3", "#1b1927"); // colours for top, right, bottom and left borders and background of bubbles
 var bubbles=66; // maximum number of bubbles on screen
 var over_or_under="over"; // set to "over" for bubbles to always be on top, or "under" to allow them to float behind other objects
 
@@ -328,24 +425,20 @@ function createDiv(height, width) {
 </script>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="jerky">
-        <h1>10th aug 2026</h1>
-    </div>
+    <div class="bg1"></div>
     <br>
 
-    <div style="max-width: 300px;">
+    <div>
 
-  <h2>its 2 am and im eating air fried chickpears they taste good</h2>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdLKHo6NjYhIoOOxnHHShAp57D7JvurJbzn1wa561wluT_0Jw/viewform?embedded=true" class="content-block" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
   </div>
 
-    
-    <br>
+  <br>
         <div class="text">
-          <a href="./blogs">
+          <a href="./">
       <h2>back</h2> </a>
     </div>
 
-  </div>
 </body>
 </html>
