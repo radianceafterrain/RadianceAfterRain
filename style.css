@@ -341,3 +341,7 @@ transition: .25s ease-in;
     transform: translateY(-15px);
   }
 }
+
+.img-flip:hover {
+  transform: scaleX(-1);
+}
