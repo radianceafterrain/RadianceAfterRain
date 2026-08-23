@@ -196,10 +196,6 @@ transition: 1s ease;
 }
 
 .img-starhover {
--webkit-mask-image: url(https://i.imgur.com/WPTnhzY.png);
--webkit-mask-size: 250%;
--webkit-mask-repeat: no-repeat;
--webkit-mask-position: center;
  transform:rotate(0deg);
 transition:0.3s;
 }
@@ -345,3 +341,11 @@ transition: .25s ease-in;
 .img-flip:hover {
   transform: scaleX(-1);
 }
+
+.container div.text,
+.container div.text1 {
+  flex-direction: column;
+  align-items: center;
+}
+
+.text h2, .text1 h2 { margin: 4px 0 0; }
