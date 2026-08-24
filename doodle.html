@@ -584,7 +584,7 @@ window.onload = function() {
   sendBtn.addEventListener('click', function () {
     canvas.toBlob(async function (blob) {
       if (!blob) return;
-      status.textContent = 'Sending…';
+      status.textContent = 'sending…';
       sendBtn.disabled = true;
  
       try {
@@ -607,7 +607,7 @@ window.onload = function() {
           })
         });
         if (res.ok) {
-          status.textContent = 'Sent — thank you!';
+          status.textContent = 'sent, thank you!';
           ctx.fillStyle = '#000';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
         } else {
