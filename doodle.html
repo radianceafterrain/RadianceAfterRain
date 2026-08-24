@@ -152,6 +152,10 @@ position: relative;
   margin: 0;
 }
 
+#doodle-canvas {
+  aspect-ratio: 2 / 1;
+}
+
 @media (max-width: 600px) {
   .doodle-controls button h2,
   #doodle-status {
@@ -378,6 +382,8 @@ window.onload = function() {
     <input type="color" id="doodle-color" value="#b00b69">
     <input type="text" id="doodle-hex" value="#b00b69" placeholder="#b00b69">
     <input type="range" id="doodle-size" min="1" max="20" value="1">
+    <button id="doodle-undo" type="button" class="text" style="display:none;"><h2>undo</h2></button>
+    <button id="doodle-redo" type="button" class="text1" style="display:none;"><h2>redo</h2></button>
     <button id="doodle-clear" type="button" class="text"><h2>clear</h2></button>
     <button id="doodle-send" type="button" class="text1"><h2>send anonymously</h2></button>
   </div>
@@ -423,39 +429,79 @@ window.onload = function() {
   });
   const clearBtn = document.getElementById('doodle-clear');
   const sendBtn = document.getElementById('doodle-send');
+  const undoBtn = document.getElementById('doodle-undo');
+  const redoBtn = document.getElementById('doodle-redo');
   const status = document.getElementById('doodle-status');
- 
-  ctx.fillStyle = '#000';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
  
   let drawing = false;
   let last = null;
+  let lastCheckpoint = 0;
+
+  // The canvas has no width/height attributes, so its drawing surface would
+  // otherwise default to a blurry 300x150 and get stretched by CSS. This
+  // sizes the real pixel resolution to match how big it's actually
+  // displayed (and the screen's pixel density), keeping lines crisp.
+  function sizeCanvasToDisplay() {
+    const rect = canvas.getBoundingClientRect();
+    const ratio = Math.min(window.devicePixelRatio || 1, 2); // capped so retina/high-DPI screens don't blow up file size
+    const newWidth = Math.max(1, Math.round(rect.width * ratio));
+    const newHeight = Math.max(1, Math.round(rect.height * ratio));
+    if (canvas.width === newWidth && canvas.height === newHeight) return;
+
+    // preserve whatever's already drawn by copying it onto the resized canvas
+    const prev = document.createElement('canvas');
+    prev.width = canvas.width;
+    prev.height = canvas.height;
+    if (canvas.width && canvas.height) prev.getContext('2d').drawImage(canvas, 0, 0);
+
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (prev.width && prev.height) {
+      ctx.drawImage(prev, 0, 0, prev.width, prev.height, 0, 0, canvas.width, canvas.height);
+    }
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    // resizing invalidates any saved snapshots (they're a different pixel size)
+    undoStack.length = 0;
+    redoStack.length = 0;
+  }
 
   // Undo/redo history — stores full canvas snapshots
   const undoStack = [];
   const redoStack = [];
   const MAX_HISTORY = 50;
 
+  function updateUndoRedoButtons() {
+    undoBtn.style.display = undoStack.length <= 1 ? 'none' : ''; // first entry is just the blank baseline
+    redoBtn.style.display = redoStack.length === 0 ? 'none' : '';
+  }
+
   function saveState() {
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     if (undoStack.length > MAX_HISTORY) undoStack.shift();
     redoStack.length = 0; // any new action invalidates redo history
+    updateUndoRedoButtons();
   }
 
   function undo() {
     if (undoStack.length === 0) return;
     redoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     ctx.putImageData(undoStack.pop(), 0, 0);
+    updateUndoRedoButtons();
   }
 
   function redo() {
     if (redoStack.length === 0) return;
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     ctx.putImageData(redoStack.pop(), 0, 0);
+    updateUndoRedoButtons();
   }
 
+  sizeCanvasToDisplay();
   saveState(); // blank canvas is the first undo-able state
  
   function getPos(e) {
@@ -471,6 +517,7 @@ window.onload = function() {
  
   function start(e) {
     saveState();
+    lastCheckpoint = performance.now();
     drawing = true;
     last = getPos(e);
     e.preventDefault();
@@ -478,6 +525,14 @@ window.onload = function() {
  
   function move(e) {
     if (!drawing) return;
+    // add extra undo checkpoints during a long continuous stroke, not just
+    // one at the very start of it, so dragging for a while still gives you
+    // more than a single undo step
+    const now = performance.now();
+    if (now - lastCheckpoint > 400) {
+      saveState();
+      lastCheckpoint = now;
+    }
     const pos = getPos(e);
     ctx.strokeStyle = colorInput.value;
     ctx.lineWidth = sizeInput.value;
@@ -512,6 +567,18 @@ window.onload = function() {
     e.preventDefault();
     if (e.shiftKey) redo();
     else undo();
+  });
+
+  undoBtn.addEventListener('click', undo);
+  redoBtn.addEventListener('click', redo);
+
+  let resizeTimeout = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function () {
+      sizeCanvasToDisplay();
+      saveState();
+    }, 150);
   });
  
   sendBtn.addEventListener('click', function () {
