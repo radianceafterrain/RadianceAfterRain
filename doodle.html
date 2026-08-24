@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <!-- Basic Open Graph tags -->
+        <!-- Basic Open Graph tags -->
   <meta property="og:title" content="RadianceAfterRain" />
-  <meta property="og:description" content="about me!!" />
-  <meta property="og:image" content="https://raw.githubusercontent.com/radianceafterrain/RadianceAfterRain/refs/heads/main/tuffpose.png" />
+  <meta property="og:description" content="send me a doodle" />
+  <meta property="og:image" content="https://media1.tenor.com/m/O24161mlgA4AAAAd/gmod-dinosaur.gif" />
   <meta property="og:url" content="https://RadianceAfterRain.com" />
   <meta property="og:type" content="website" />
 
   <!-- Optional but recommended: Twitter card (Discord also reads these) -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="RadianceAfterRain" />
-  <meta name="twitter:description" content="about me!!" />
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/radianceafterrain/RadianceAfterRain/refs/heads/main/tuffpose.png" />
+  <meta name="twitter:description" content="send me a doodle" />
+  <meta name="twitter:image" content="https://media1.tenor.com/m/O24161mlgA4AAAAd/gmod-dinosaur.gif" />
   <style type="text/css">
 BODY {overflow-x: hidden;}
 </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
+    <title>Doodle</title>
     <link href="style.css" rel="stylesheet" type="text/css" media="all">
     <style>
 
@@ -115,6 +115,52 @@ transition: transform .5s ease;
 
 .text1 {
 position: relative;
+}
+
+.doodle-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.doodle-controls input[type="range"] {
+  flex: 1 1 100px;
+  min-width: 80px;
+}
+
+.doodle-controls input[type="text"] {
+  width: 90px;
+  box-sizing: border-box;
+}
+
+#doodle-widget button {
+  border: none;
+  background: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: #fff;
+  font-family: 'ComicSansMS', 'ComicSansMS', cursive, sans-serif;
+}
+
+#doodle-widget button h2 {
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .doodle-controls button h2,
+  #doodle-status {
+    font-size: 0.85em;
+  }
+
+  #doodle-canvas {
+    aspect-ratio: 3 / 4;
+  }
 }
   </style>
 
@@ -319,42 +365,202 @@ window.onload = function() {
 </head>
 <body>
     <div class="bg1"></div>
-    <div class="tilt">
-        <h1>about me</h1>
-    </div>
-    <br>
 
-    <div class="content-block">
-      <h2>im RadianceAfterRain or Rar for short</h2>
-      <h2>self taught artist, gamedev and modeller !!!</h2>
-      <h2>she/her, 2008, UTC +0/1, student</h2>
-      <h2>interested in becoming better at music and writing</h2>
-    </div>
-    <br>
-    
-    <br>
 
-    <div class="content-block"><h2>software n hardware i use</h2>
-    <h2> <a href="https://krita.org/en/download/" target="_blank" rel="noopener noreferrer">krita 5.3 (to draw)</a>, <a href="https://www.blender.org/download/" target="_blank" rel="noopener noreferrer">blender 4/5 (to model, animate and video edit)</a>, <a href="https://godotengine.org/download" target="_blank" rel="noopener noreferrer"> godot 4 (for gamedev)</a></h2>
 
-<div class="scroll-container">
-  <a href="https://krita.org/en/download/" target="_blank" rel="noopener noreferrer"> <img src="kritaicon.png"> </a>
-  <a href="https://www.blender.org/download/" target="_blank" rel="noopener noreferrer"> <img src="blender icon.png"> </a>
-  <a href="https://godotengine.org/download" target="_blank" rel="noopener noreferrer"> <img src="godoticon.png"> </a>
+<div id="doodle-widget">
+  <h2>doodle!</h2>
+ 
+  <canvas id="doodle-canvas" class="content-block"
+    style="touch-action:none;background:#000;cursor:crosshair;width:100%;"></canvas>
+ 
+  <div class="content-block doodle-controls">
+    <input type="color" id="doodle-color" value="#b00b69">
+    <input type="text" id="doodle-hex" value="#b00b69" placeholder="#b00b69">
+    <input type="range" id="doodle-size" min="1" max="20" value="1">
+    <button id="doodle-clear" type="button" class="text"><h2>clear</h2></button>
+    <button id="doodle-send" type="button" class="text1"><h2>send anonymously</h2></button>
+  </div>
+ 
+  <h2 id="doodle-status"></h2>
 </div>
+ 
+<script>
+(function () {
+  // ---- CONFIGURE THIS ----
+  const FORM_ENDPOINT = "https://api.web3forms.com/submit";
+  const WEB3FORMS_ACCESS_KEY = "9d18d101-2fad-41f7-a375-fe4eeb211728";
+  // -------------------------
+ 
+  const canvas = document.getElementById('doodle-canvas');
+  const ctx = canvas.getContext('2d');
+  const colorInput = document.getElementById('doodle-color');
+  const hexInput = document.getElementById('doodle-hex');
+  const sizeInput = document.getElementById('doodle-size');
+ 
+  const HEX_RE = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
+ 
+  // Color swatch changes -> update the hex text field
+  colorInput.addEventListener('input', function () {
+    hexInput.value = colorInput.value;
+  });
+ 
+  // Typing a hex code -> update the swatch, once it's a valid hex
+  hexInput.addEventListener('input', function () {
+    let val = hexInput.value.trim();
+    if (val && val[0] !== '#') val = '#' + val;
+    if (HEX_RE.test(val)) {
+      colorInput.value = val.length === 4
+        ? '#' + val[1] + val[1] + val[2] + val[2] + val[3] + val[3] // expand shorthand #abc -> #aabbcc
+        : val;
+    }
+  });
+ 
+  // On blur, snap the text field back to whatever the swatch actually holds
+  // (cleans up invalid/partial input the user left behind)
+  hexInput.addEventListener('blur', function () {
+    hexInput.value = colorInput.value;
+  });
+  const clearBtn = document.getElementById('doodle-clear');
+  const sendBtn = document.getElementById('doodle-send');
+  const status = document.getElementById('doodle-status');
+ 
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+ 
+  let drawing = false;
+  let last = null;
 
-    <h2>majority of my stuff was made on <a href="https://linuxmint.com/download.php" target="_blank" rel="noopener noreferrer">mint cinnamon 22</a> but unfortunately i recently went to windows 11</h2>
-    <h2>my old website was made and hosted on <a href="https://neocities.org/browse" target="_blank" rel="noopener noreferrer">neocities</a> but now i use <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">VSCode</a> and <a href="https://github.com/" target="_blank" rel="noopener noreferrer">github pages</a> for this website</h2>
-    <div class="scroll-container">
-  <a href="https://linuxmint.com/download.php" target="_blank" rel="noopener noreferrer"> <img src="minticon.png"> </a>
-  <a href="https://neocities.org/browse" target="_blank" rel="noopener noreferrer"> <img src="neocities icon.png"> </a>
-  <a href="https://github.com/" target="_blank" rel="noopener noreferrer"> <img src="githubicon.png"> </a>
-</div>
-    <h2>i use a graphics tablet to draw and my phone to record my voice</h2></div>
+  // Undo/redo history — stores full canvas snapshots
+  const undoStack = [];
+  const redoStack = [];
+  const MAX_HISTORY = 50;
+
+  function saveState() {
+    undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    if (undoStack.length > MAX_HISTORY) undoStack.shift();
+    redoStack.length = 0; // any new action invalidates redo history
+  }
+
+  function undo() {
+    if (undoStack.length === 0) return;
+    redoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    ctx.putImageData(undoStack.pop(), 0, 0);
+  }
+
+  function redo() {
+    if (redoStack.length === 0) return;
+    undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    ctx.putImageData(redoStack.pop(), 0, 0);
+  }
+
+  saveState(); // blank canvas is the first undo-able state
+ 
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const point = e.touches ? e.touches[0] : e;
+    return {
+      x: (point.clientX - rect.left) * scaleX,
+      y: (point.clientY - rect.top) * scaleY
+    };
+  }
+ 
+  function start(e) {
+    saveState();
+    drawing = true;
+    last = getPos(e);
+    e.preventDefault();
+  }
+ 
+  function move(e) {
+    if (!drawing) return;
+    const pos = getPos(e);
+    ctx.strokeStyle = colorInput.value;
+    ctx.lineWidth = sizeInput.value;
+    ctx.beginPath();
+    ctx.moveTo(last.x, last.y);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    last = pos;
+    e.preventDefault();
+  }
+ 
+  function end() { drawing = false; }
+ 
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+ 
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', move, { passive: false });
+  canvas.addEventListener('touchend', end);
+ 
+  clearBtn.addEventListener('click', function () {
+    saveState();
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    status.textContent = '';
+  });
+
+  document.addEventListener('keydown', function (e) {
+    const ctrlOrCmd = e.ctrlKey || e.metaKey;
+    if (!ctrlOrCmd || e.key.toLowerCase() !== 'z') return;
+    e.preventDefault();
+    if (e.shiftKey) redo();
+    else undo();
+  });
+ 
+  sendBtn.addEventListener('click', function () {
+    canvas.toBlob(async function (blob) {
+      if (!blob) return;
+      status.textContent = 'Sending…';
+      sendBtn.disabled = true;
+ 
+      try {
+        // Web3Forms' free plan doesn't support real file attachments, so the
+        // doodle is sent as a base64 text string instead of an uploaded file.
+        const dataUrl = await new Promise(function (resolve, reject) {
+          const reader = new FileReader();
+          reader.onload = function () { resolve(reader.result); };
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+ 
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: 'New anonymous doodle',
+            doodle_image: dataUrl
+          })
+        });
+        if (res.ok) {
+          status.textContent = 'Sent — thank you!';
+          ctx.fillStyle = '#000';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else {
+          status.textContent = 'Something went wrong. Try again later.';
+        }
+      } catch (err) {
+        status.textContent = 'Network error. Try again later.';
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }, 'image/png');
+  });
+})();
+</script>
+
+
 
     <br>
         <div class="text">
-          <a href="index.html">
+          <a href="./">
       <h2>back</h2> </a>
     </div>
 
